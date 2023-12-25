@@ -1,0 +1,94 @@
+﻿@model TicketInvoiceWebApp.Models.Invoice
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Invoice</h4>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form asp-action="Create">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CreatedDate" class="control-label"></label>
+                <input asp-for="CreatedDate" class="form-control" />
+                <span asp-validation-for="CreatedDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PassengerName" class="control-label"></label>
+                <input asp-for="PassengerName" class="form-control" />
+                <span asp-validation-for="PassengerName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactNo" class="control-label"></label>
+                <input asp-for="ContactNo" class="form-control" />
+                <span asp-validation-for="ContactNo" class="text-danger"></span>
+            </div>
+            <br />
+            <table class="table table-responsive table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>
+                            Destination
+                        </th>
+                        <th>
+                            Unit Price
+                        </th>
+                        <th>
+                            Quantity
+                        </th>
+                        <th>
+                            Total Price
+                        </th>
+                        <th>
+                            <input type="submit" value="Add" name="command" class="btn btn-success" />
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i=0; i<Model.TicketInfos.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                                <input asp-for="TicketInfos[i].InfoId" class="form-control" type="hidden"/>
+                                <input asp-for="TicketInfos[i].Destination" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="TicketInfos[i].UnitPrice" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="TicketInfos[i].Quantity" class="form-control" />
+                            </td>
+                            <td>
+                                <input asp-for="TicketInfos[i].TotalPrice" class="form-control" readonly />
+                            </td>
+                            <td>
+                                <button value="delete-@i" name="command">Delete</button>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
